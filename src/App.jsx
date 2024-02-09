@@ -1,23 +1,37 @@
-import './App.css'
+import {useState} from 'react';
 import { Outlet, Link } from "react-router-dom";
-
+import Contexte from "./Contexte";
+import dadesParcs from './parcs.json';
+import './App.css'
+import TriaIdioma from './TriaIdioma';
 function App() {
 
+  const [idioma, setIdioma] = useState("ca");
+
+  const dades = {
+    dadesParcs, 
+    idioma,
+    setIdioma
+  }
+
   return (
-    <div className="p-[50px]">
+    <Contexte.Provider value={dades}>
+      <div className="p-[50px]">
 
-      <div className="flex justify-between mb-10">
-        <Link className="border px-4 py-2 bg-blue-700 text-white" to="/" >Inici</Link>
-        <Link className="border px-4 py-2 bg-blue-700 text-white" to="/parc/montseny">Montseny</Link>
-        <Link className="border px-4 py-2 bg-blue-700 text-white" to="/parc/vallvidrera">Vallvidrera</Link>
-        <Link className="border px-4 py-2 bg-blue-700 text-white" to="/parc/collserola">Collserola</Link>
+      <TriaIdioma />
+        <div className="flex justify-between mb-10">
+          <Link className="border px-4 py-2 bg-blue-700 text-white" to="/" >Inici</Link>
+          <Link className="border px-4 py-2 bg-blue-700 text-white" to="/parc/montseny">Montseny</Link>
+          <Link className="border px-4 py-2 bg-blue-700 text-white" to="/parc/vallvidrera">Vallvidrera</Link>
+          <Link className="border px-4 py-2 bg-blue-700 text-white" to="/parc/collserola">Collserola</Link>
+        </div>
+
+        <div className="bg-blue-200 p-10">
+          <Outlet />
+        </div>
+
       </div>
-
-      <div className="bg-blue-200 p-10">
-        <Outlet />
-      </div>
-
-    </div>
+    </Contexte.Provider>
   )
 }
 
